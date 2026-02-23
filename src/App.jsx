@@ -113,6 +113,7 @@ function App() {
         jobId,
         candidateId: candidate.candidateId,
         repoUrl,
+        applicationId: candidate.applicationId,
       });
 
       setApplyStatusByJobId((prev) => ({

@@ -27,7 +27,7 @@ export const getJobsList = async () => {
   return Array.isArray(data) ? data : [];
 };
 
-export const applyToJob = async ({ uuid, candidateId, jobId, repoUrl }) => {
+export const applyToJob = async ({ uuid, candidateId, jobId, repoUrl, applicationId }) => {
   const response = await fetch(`${BASE_URL}/api/candidate/apply-to-job`, {
     method: "POST",
     headers: {
@@ -38,6 +38,7 @@ export const applyToJob = async ({ uuid, candidateId, jobId, repoUrl }) => {
       candidateId,
       jobId,
       repoUrl,
+      applicationId,
     }),
   });
 
