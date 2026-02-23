@@ -1,0 +1,122 @@
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.app {
+  width: 100%;
+  max-width: 900px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #1f2937;
+}
+
+h1 {
+  margin: 0 0 16px;
+  color: #86efac;
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+}
+
+.panel {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+input {
+  flex: 1;
+  min-width: 240px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #9ca3af;
+  font-size: 0.95rem;
+}
+
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #86efac;
+  color: #000000;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.candidate {
+  margin-top: 12px;
+  font-size: 0.95rem;
+}
+
+.job-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.job-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.job-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.job-id {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.message {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.success {
+  color: #166534;
+}
+
+@media (max-width: 640px) {
+  #root {
+    padding: 12px;
+  }
+
+  input {
+    min-width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+}
