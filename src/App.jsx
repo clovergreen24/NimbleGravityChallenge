@@ -2,9 +2,11 @@ import "./App.css";
 import { useState } from "react";
 import CandidateSearch from "./components/CandidateSearch";
 import JobList from "./components/JobList";
-
-const BASE_URL =
-  "https://botfilter-h5ddh6dye8exb7ha.centralus-01.azurewebsites.net";
+import {
+  applyToJob,
+  getCandidateByEmail as fetchCandidateByEmail,
+  getJobsList,
+} from "./services/apiService";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -32,17 +34,7 @@ function App() {
     setApplyStatusByJobId({});
 
     try {
-      const response = await fetch(
-        `${BASE_URL}/api/candidate/get-by-email?email=${encodeURIComponent(
-          cleanEmail
-        )}`
-      );
-
-      if (!response.ok) {
-        throw new Error("No se pudo obtener el candidato.");
-      }
-
-      const data = await response.json();
+      const data = await fetchCandidateByEmail(cleanEmail);
       setCandidate(data);
 
       return data;
@@ -59,14 +51,8 @@ function App() {
     setError("");
 
     try {
-      const response = await fetch(`${BASE_URL}/api/jobs/get-list`);
-
-      if (!response.ok) {
-        throw new Error("No se pudo obtener la lista de posiciones.");
-      }
-
-      const data = await response.json();
-      setJobs(Array.isArray(data) ? data : []);
+      const data = await getJobsList();
+      setJobs(data);
     } catch (err) {
       setError(err.message || "Error al obtener las posiciones.");
     } finally {
@@ -122,33 +108,12 @@ function App() {
     }));
 
     try {
-      const response = await fetch(
-        `${BASE_URL}/api/candidate/apply-to-job`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            uuid: candidate.uuid,
-            jobId,
-            candidateId: candidate.candidateId,
-            repoUrl,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("No se pudo enviar la postulacion.");
-      }
-
-      const data = await response.json();
-
-      if (!data?.ok) {
-        throw new Error(
-          "La API respondio sin confirmar la postulacion."
-        );
-      }
+      await applyToJob({
+        uuid: candidate.uuid,
+        jobId,
+        candidateId: candidate.candidateId,
+        repoUrl,
+      });
 
       setApplyStatusByJobId((prev) => ({
         ...prev,
